@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>テキスト保存アプリ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+    textarea {
+      width: 90%;
+      height: 300px;
+      font-size: 16px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h2>テキストファイルを作って保存する</h2>
+  <textarea id="textInput" placeholder="ここにテキストを入力または貼り付けてください"></textarea>
+  <button onclick="saveText()">保存する</button>
+
+
+  <script>
+    function saveText() {
+      const text = document.getElementById("textInput").value;
+      const blob = new Blob([text], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "mytext.txt"; // ← 好きな名前に変更OK
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
